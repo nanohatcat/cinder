@@ -1,0 +1,78 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import AsciiWidget from '../components/AsciiWidget.astro';
+
+const blogPosts = [
+{ title: "website revamp 4\n", date: "2026-06-24 2:17 pm ast", style: "double" as const, content: "everblush colorscheme lolololol\nalso website looks prettier now" },
+  { title: "website revamp 3\n", date: "2026-06-19 4:25 pm gmt -4", style: "single" as const, content: "another switch to catppuccin mocha/latte." },
+  { title: "website revamp 2\n ", date: "2026-06-15 1:06 pm gmt -4", style: "single" as const, content: "i switched the breeze dark colorscheme to gruvbox dark medium." },
+  { title: "website revamp\n ", date: "2026-06-13 8:06 pm gmt -4", style: "single" as const, content: "i'm really sorry for not updating anything in the website since may, i really didn't have anything to do other than script in ywot, hence why i didn't.\n\ni'll port the old md pages to this ascii boxes like ui, and definetly keep this ui." }
+];
+---
+<BaseLayout title="cinder.radiocat.lol">
+    <header>
+        <pre class="ascii-logo">
+░█▀▀░▀█▀░█▀█░█▀▄░█▀▀░█▀▄░░░▀▄░░░░░░▀▀█
+░█░░░░█░░█░█░█░█░█▀▀░█▀▄░░░░▄▀░░▀░░░▀▄
+░▀▀▀░▀▀▀░▀░▀░▀▀░░▀▀▀░▀░▀░░░▀░░░░▀░░▀▀░
+        </pre>
+
+        <div class="header-text">
+            fuck paper straws
+        </div>
+
+        <AsciiWidget style="double" id="theme-btn" class="dynamic-toggle">
+            switch to light mode
+        </AsciiWidget>
+
+        <div class="topbar-wrapper">
+            <nav id="topbar" class="ascii-widget" data-box-style="rounded">
+                <a href="#home">home</a>   ·   <a href="#blogs">blogs</a>   ·   <a href="#etcetera">etcetera</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="layout">
+        <!-- TAB: HOME -->
+        <div id="tab-home" class="tab-section active-tab">
+            <main class="posts">
+                <AsciiWidget style="double">
+Hello people :3
+---
+I'm Cinder.
+I was born on July 8th 2011, in São Paulo - Brazil
+I like some silly stuff like deltarune, tadc, fnaf and so much more :D
+I'm also a redstoner and pianist (not good at either)
+
+I also have a youtube channel where i post every thousand years
+<a href="https://www.youtube.com/@CinderHatesPaperStraws">[@CinderHatesPaperStraws]</a>
+                </AsciiWidget>
+            </main>
+        </div>
+
+        <!-- TAB: BLOGS -->
+        <div id="tab-blogs" class="tab-section">
+            <main class="posts">
+                {blogPosts.map(post => (
+                    <AsciiWidget style={post.style}>
+{post.title}
+{post.date}
+---
+{post.content}
+                    </AsciiWidget>
+                ))}
+            </main>
+        </div>
+
+        <!-- TAB: ETCETERA -->
+        <div id="tab-etcetera" class="tab-section">
+            <aside class="sidebar">
+                <AsciiWidget style="double">
+other stuff
+---
+> <a href="https://www.youtube.com/@CinderHatesPaperStraws" target="_blank">my youtube</a>
+                </AsciiWidget>
+            </aside>
+        </div>
+    </div>
+</BaseLayout>

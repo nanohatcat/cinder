@@ -1,0 +1,254 @@
+@font-face {
+    font-family: 'terminus';
+    src: url('/assets/Terminus (TTF) 500.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'terminus';
+    src: url('/assets/Terminus (TTF) Italic 500.ttf') format('truetype');
+    font-weight: 500;
+    font-style: italic;
+}
+@font-face {
+    font-family: 'terminus';
+    src: url('/assets/Terminus (TTF) Bold 700.ttf') format('truetype');
+    font-weight: 700;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'terminus';
+    src: url('/assets/Terminus (TTF) Bold Italic 700.ttf') format('truetype');
+    font-weight: 700;
+    font-style: italic;
+}
+
+/* Base2Tone Motel - Light Theme variables */
+:root {
+    --bg: #f9f8f8;
+    --bg-dim: #ecebea;
+    --fg: #5a5354;
+    --fg-dim: #766b6c;
+    --accent: #e24f32;
+    --accent-hover: #f6684c;
+    --border: #f8917c;
+    --pop-overlay: rgba(249, 248, 248, 0.85);
+
+    --matrix-text: #e24f32;
+    --matrix-bg: #f9f8f8;
+}
+
+/* Base2Tone Motel - Dark Theme variables */
+[data-theme="dark"] {
+    --bg: #242323;
+    --bg-dim: #373434;
+    --fg: #cac0be;
+    --fg-dim: #a89c99;
+    --accent: #f8917c;
+    --accent-hover: #ffc8bd;
+    --border: #956f76;
+    --pop-overlay: rgba(36, 35, 35, 0.85);
+
+    --matrix-text: #f8917c;
+    --matrix-bg: #242323;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    max-width: 100vw;
+    overflow-x: hidden;
+    image-rendering: pixelated;
+}
+
+body {
+    background-color: var(--bg);
+    color: var(--fg);
+    font-family: 'terminus', 'courier new', courier, monospace;
+    font-weight: 500;
+    margin: 0;
+    padding: 20px;
+}
+
+/* crt overlays */
+body::after {
+    content: "";
+    position: fixed;
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%);
+    background-size: 100% 4px;
+    z-index: 9999;
+    pointer-events: none;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    background: radial-gradient(circle, rgba(0,0,0,0) 60%, rgba(0,0,0,0.2) 100%);
+    z-index: 9998;
+    pointer-events: none;
+}
+
+#matrix-canvas {
+position: fixed;
+top: 0;
+left: 0;
+width: 100vw;
+height: 100vh;
+z-index: 0;
+pointer-events: none;
+opacity: 0.25;
+image-rendering: pixelated;
+}
+
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: block;
+    position: relative;
+    z-index: 10;
+}
+
+pre {
+    margin: 0;
+    font-family: 'terminus', 'courier new', courier, monospace;
+    line-height: 1.0 !important;
+    letter-spacing: 0px !important;
+}
+
+header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.ascii-logo {
+    font-size: clamp(0.5rem, 1.2vw, 1rem);
+    margin-bottom: 10px;
+    text-align: center;
+    line-height: 1.0 !important;
+    letter-spacing: 0px !important;
+    max-width: 100%;
+    overflow: hidden;
+    color: var(--accent);
+    user-select: none;
+}
+
+.header-text {
+    text-align: center;
+    margin-bottom: 25px;
+    max-width: 600px;
+    font-size: 0.95rem;
+    color: var(--fg-dim);
+}
+
+.topbar-wrapper {
+    width: 100%;
+    max-width: 320px;
+    margin-top: 15px;
+}
+
+#topbar {
+margin-bottom: 0;
+}
+
+#topbar a.active {
+color: var(--accent-hover);
+font-weight: 700;
+text-decoration: none;
+border-bottom: 2px solid var(--accent-hover);
+}
+
+.layout {
+    position: relative;
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.tab-section {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.tab-section.active-tab {
+    position: relative;
+    visibility: visible;
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.posts, .sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+    min-width: 0;
+}
+
+.ascii-widget {
+    white-space: pre;
+    font-family: 'terminus', 'courier new', courier, monospace;
+    display: block;
+    width: 100%;
+    overflow: hidden;
+    word-wrap: break-word;
+    line-height: 1.0 !important;
+    letter-spacing: 0px !important;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    margin-bottom: 25px;
+    color: var(--fg);
+    text-align: center;
+    position: relative;
+}
+
+.ascii-widget[data-join-group] {
+    margin-bottom: 0px;
+}
+
+.ascii-widget[data-join-group] + .ascii-widget[data-join-group] {
+    margin-top: -1px;
+    margin-bottom: 0px;
+}
+
+.ascii-widget[data-join-group]:last-of-type {
+    margin-bottom: 25px;
+}
+
+.dynamic-toggle {
+    cursor: pointer;
+    user-select: none;
+    width: fit-content;
+    color: var(--accent);
+}
+
+.dynamic-toggle:hover {
+    color: var(--accent-hover);
+}
+
+.dynamic-toggle:active {
+    transform: scale(0.97);
+}
+
+.ascii-widget a {
+    color: var(--accent);
+    text-decoration: underline;
+    position: relative;
+    z-index: 10;
+    cursor: pointer;
+}
+
+.ascii-widget a:hover {
+    color: var(--accent-hover);
+    text-decoration: none;
+}
